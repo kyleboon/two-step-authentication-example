@@ -1,0 +1,3 @@
+seed = {
+  user(meta:[key:'username'], username: 'user1', password: 'password1')
+}
