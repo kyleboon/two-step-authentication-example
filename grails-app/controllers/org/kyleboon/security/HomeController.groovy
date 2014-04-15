@@ -1,6 +1,14 @@
 package org.kyleboon.security
 
-class HomeController {
+import grails.plugin.springsecurity.annotation.Secured
+import org.kyleboon.Role
 
-    def index() { }
+class HomeController {
+    def beforeInterceptor = {
+        println "Tracing action ${actionUri}"
+    }
+
+    @Secured([Role.ROLE_NORMAL])
+    def index() {
+    }
 }

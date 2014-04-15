@@ -5,7 +5,6 @@
 </head>
 
 <body>
-
-
+    Successfully Logged in!
 </body>
 </html>
