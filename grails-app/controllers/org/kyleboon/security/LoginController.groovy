@@ -1,6 +1,8 @@
 package org.kyleboon.security
 
+import grails.plugin.springsecurity.SpringSecurityUtils
 import org.kyleboon.StepOneUserDetailsProviderService
+import org.kyleboon.TextMessageAuthenticationFilter
 
 import static grails.plugin.springsecurity.SpringSecurityUtils.ifAnyGranted
 
@@ -17,6 +19,10 @@ class LoginController extends grails.plugin.springsecurity.LoginController {
 
 
     def steptwo() {
+        [
+                postUrl: "${request.contextPath}/${SpringSecurityUtils.securityConfig.textMessage.filterProcessesUrl}",
+                tokenName: TextMessageAuthenticationFilter.TEXT_MESSAGE_RESPONSE_KEY
+        ]
 
     }
 }
