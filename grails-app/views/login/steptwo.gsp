@@ -96,7 +96,7 @@
         <form action='${postUrl}' method='POST' id='stepTwoLoginForm' class='cssform' autocomplete='off'>
             <p>
                 <label for='textcode'><g:message code="securitytoken.label"/>:</label>
-                <input type='text' class='text_' name='j_textcode' id='textcode'/>
+                <input type='text' class='text_' name='${tokenName}' id='textcode'/>
             </p>
             <p>
                 <input type='submit' id="submit" value='${message(code: "securitytoken.button")}'/>

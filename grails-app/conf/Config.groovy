@@ -11,6 +11,8 @@
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
 
+grails.app.context = "/"
+
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
 
 // The ACCEPT header will not be used for content negotiation for user agents containing the following strings (defaults to the 4 major rendering engines)
@@ -95,7 +97,6 @@ environments {
     }
     production {
         grails.logging.jul.usebridge = false
-        // TODO: grails.serverURL = "http://www.changeme.com"
     }
 }
 
@@ -120,14 +121,35 @@ log4j = {
            'net.sf.ehcache.hibernate'
 }
 
-// Added by the Spring Security Core plugin:
-grails.plugin.springsecurity.userLookup.userDomainClassName = 'org.kyleboon.User'
-grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'org.kyleboon.UserRole'
-grails.plugin.springsecurity.authority.className = 'org.kyleboon.Role'
-grails.plugin.springsecurity.controllerAnnotations.staticRules = [
-	'/login':                         ['permitAll'],
-	'/**/js/**':                      ['permitAll'],
-	'/**/css/**':                     ['permitAll'],
-	'/**/images/**':                  ['permitAll'],
-	'/**/favicon.ico':                ['permitAll']
-]
+grails {
+    plugin {
+        springsecurity {
+            userLookup.userDomainClassName = 'org.kyleboon.User'
+            userLookup.authorityJoinClassName = 'org.kyleboon.UserRole'
+            authority.className = 'org.kyleboon.Role'
+            // warning, because we have our own version of the AuthenticationProcessingFilter
+            // (SecurityCookieAuthenticationFilter) not all of these settings get loaded by the regular
+            // spring security, but instead are configured in the resources.groovy file (or directly in the BAPF)
+            active = true
+            useSecurityEventListener = true
+
+            textMessage {
+                filterProcessesUrl = '/j_spring_security_text_message'
+            }
+
+            providerNames = [
+                    'textMessageAuthenticationProvider',
+                    'daoAuthenticationProvider',
+                    'anonymousAuthenticationProvider'
+            ]
+
+            controllerAnnotations.staticRules = [
+                    '/login':                         ['permitAll'],
+                    '/**/js/**':                      ['permitAll'],
+                    '/**/css/**':                     ['permitAll'],
+                    '/**/images/**':                  ['permitAll'],
+                    '/**/favicon.ico':                ['permitAll']
+            ]
+        }
+    }
+}
