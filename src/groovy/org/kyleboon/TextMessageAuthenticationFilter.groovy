@@ -34,6 +34,4 @@ class TextMessageAuthenticationFilter extends AbstractAuthenticationProcessingFi
 
         return authToken
     }
-
-
 }

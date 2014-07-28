@@ -11,6 +11,9 @@
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
 
+twilio.sid = AC7fc216494409edb7d202eff45f06edb2
+twilio.authToke = e09557b155b58936c45009d83dc3c862
+
 grails.app.context = "/"
 
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
